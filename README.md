@@ -9,7 +9,7 @@ For news and announcements, see [@appjangle](https://twitter.com/appjangle) or t
 
 - Create a new HTML page anywhere on your local system using the template `app.html` (you can change the name of the file, if you like).
 - Download the textsync.jar and save somewhere on your local system
-- Head to [appjangle.com/singUp](http://appjangle.com/singUp) and get a free appjangle account.
+- Head to [appjangle.com/signup](http://appjangle.com/signup) and get a free appjangle account.
 - Launch textsync.jar and enter your appjangle account details.
 - Open the app.html and edit it with any editor/IDE of your choice.
  - Add JS code and HTML code at the appropriate location.
