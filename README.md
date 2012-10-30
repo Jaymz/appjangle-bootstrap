@@ -18,4 +18,4 @@ For news and announcements, see [@appjangle](https://twitter.com/appjangle) or t
 - Start a textsync synchronization
 - Reload your `app.html` file. It should now have a statement in the beginning such as `<-- one.upload [YOUR URL] -->`.
 - Copy the URL given at `YOUR URL` and paste it into a browser window. 
-- **Important**: Add to the end of the URL `.value.html`. 
+- **Important**: Add to the end of the URL `.value.html` and change `https` to `http` at the beginning of the URL. 

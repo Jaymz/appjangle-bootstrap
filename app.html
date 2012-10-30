@@ -6,7 +6,9 @@ How to use:
 4. Drag and drop your app.html file into TextSync
 5. Run synchronization
 6. Reload app.html in your editor
-7. Open the URL besides one.upload in your web browser. Don't forget to add .value.html at the end of the URL.
+7. Open the URL besides one.upload in your web browser. 
+   Don't forget to add .value.html at the end of the URL 
+   and replace https with http at the beginning of the URL.
 -->
 <!-- one.createPublic appname -->
 <!DOCTYPE html>
@@ -16,12 +18,20 @@ How to use:
 </head>
 <body>
 
-	<script src="http://appjangle.com/js/v01/appjangle/appjangle.nocache.js"></script>
-	
+	<script
+		src="http://appjangle.com/js/v01/appjangle/appjangle.nocache.js"></script>
+
 	<script>
-		// your JS here, use Nextweb.io API!
+		window.onNextwebOnedb = function() {
+			// your JS here, use Nextweb.io API!
+			var session = Nextweb.createSession();
+		};
 	</script>
 </body>
+
+</html>
+
+
 
 </html>
 
