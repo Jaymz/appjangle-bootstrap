@@ -10,7 +10,7 @@ How to use:
    Don't forget to add .value.html at the end of the URL 
    and replace https with http at the beginning of the URL.
 -->
-<!-- one.createPublic appname -->
+<!-- one.upload http://slicnet.com/james/james/apps/textsync/files/appname -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,9 +23,48 @@ How to use:
 
 	<script>
 		window.onNextwebOnedb = function() {
-			// your JS here, use Nextweb.io API (http://nextweb.io)
-			var session = Nextweb.createSession();
+			console.log("Starting..");
+			
+			// Call without url to populate e.hello with 5 translations. Add existing url to retrieve stored values.
+			var e = loadHellos();
+			
+			e.hello.selectAll().get(function(nodelist) {
+				console.log(nodelist.get());
+				for (var i = nodelist.values().length - 1; i >= 0; i--) {
+					console.log(nodelist.values()[i].language + ': ' + nodelist.values()[i].translation);
+				}
+			});
 		};
+		
+		function loadHellos(uri) {
+			var e = {};
+			
+			e.session = Nextweb.createSession();
+			e.seed = e.session.seed();
+			if (uri) {
+				console.log("Retrieving existing data...");
+				e.hello = e.session.node(uri + "helloWo1");
+				e.aHello = e.session.node(uri + "aHello");
+				console.log("Data retrieved from: " + e.hello.uri());
+			} else {
+				console.log("Configuring new data...");
+				e.hello = e.seed.append("helloWorld");
+				
+				e.aHello = e.seed.append("The string 'Hello, World!' in the specified language.", "./aHello");
+			
+				e.hello.append({language: "French", translation: "Bonjour tout le monde!"}).append(e.aHello);
+				e.hello.append({language: "English", translation: "Hello, World!"}).append(e.aHello);
+				e.hello.append({language: "Danish", translation: "Hej, Verden!"}).append(e.aHello);
+				e.hello.append({language: "Icelandic", translation: "Hallo, heimur!"}).append(e.aHello);
+				e.hello.append({language: "Spanish", translation: "Ciao, mondo!"}).append(e.aHello);
+				
+				e.session.commit().get(function(){
+					console.log("New seed URI: "+e.seed.get().uri());
+				});
+			}
+			
+			return e;
+		}
 	</script>
 </body>
 
