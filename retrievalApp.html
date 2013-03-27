@@ -31,9 +31,9 @@ How to use:
 		window.onNextwebOnedb = function() {
 			console.log("Starting..");
 			
-			// Call without url to populate e.hello with 5 translations. Add existing url to retrieve stored values.
 			var seed = "http://slicnet.com/seed1/seed1/5/3/8/5/h/sd/";
 			
+			// Call without url to populate e.hello with 5 translations. Add existing url to retrieve stored values.
 			var e = loadHellos(seed);
 			
 			var languages = e.hello.selectAll(e.aTranslation);
