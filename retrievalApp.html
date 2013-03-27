@@ -17,8 +17,12 @@ How to use:
 <title>App</title>
 </head>
 <body>
-	<div id="output"></div>
-
+	<div id="language1"></div>
+	<div id="language2"></div>
+	
+	<div id="hello1"></div>
+	<div id="hello"></div>
+	
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script
 		src="http://appjangle.com/js/v01/appjangle/appjangle.nocache.js"></script>
@@ -28,18 +32,23 @@ How to use:
 			console.log("Starting..");
 			
 			// Call without url to populate e.hello with 5 translations. Add existing url to retrieve stored values.
-			var seed = "http://slicnet.com/seed1/seed1/5/3/5/8/h/sd/";
+			var seed = "http://slicnet.com/seed1/seed1/5/3/8/5/h/sd/";
 			
 			var e = loadHellos(seed);
 			
-			e.hello.selectAll(e.aHello).get(function(nodelist) {
-				var output = "";
-				for (var i = nodelist.values().length - 1; i >= 0; i--) {
-					output += nodelist.values()[i].language + ': ' + nodelist.values()[i].translation + "<br />";
-					console.log(nodelist.values()[i].language + ': ' + nodelist.values()[i].translation);
+			var languages = e.hello.selectAll(e.aTranslation);
+			
+			languages.get(function(nodelist) {
+				var language;
+				for (var i = 1; i <= 2; i++) {
+					language = nodelist.nodes()[i];
+					$('#language'+i).html("" + language.value());
+					
+					var helloNode = language.select(e.aHello);
+					helloNode.get(function(helloNode){
+						$('#hello').append(helloNode.value()+"<br />");
+					});
 				}
-				
-				$("#output").html(output);
 			});
 		};
 		
@@ -52,22 +61,9 @@ How to use:
 				console.log("Retrieving existing data...");
 				e.hello = e.session.node(uri + "helloWo1");
 				e.aHello = e.session.node(uri + "aHello");
+				e.aTranslation = e.session.node(uri + "aTranslation");
+				
 				console.log("Data retrieved from: " + e.hello.uri());
-			} else {
-				console.log("Configuring new data...");
-				e.hello = e.seed.append("helloWorld");
-				
-				e.aHello = e.seed.append("The string 'Hello, World!' in the specified language.", "./aHello");
-			
-				e.hello.append({language: "French", translation: "Bonjour tout le monde!"}).append(e.aHello);
-				e.hello.append({language: "English", translation: "Hello, World!"}).append(e.aHello);
-				e.hello.append({language: "Danish", translation: "Hej, Verden!"}).append(e.aHello);
-				e.hello.append({language: "Icelandic", translation: "Hallo, heimur!"}).append(e.aHello);
-				e.hello.append({language: "Spanish", translation: "Ciao, mondo!"}).append(e.aHello);
-				
-				e.session.commit().get(function(){
-					console.log("New seed URI: "+e.seed.get().uri());
-				});
 			}
 			
 			return e;
